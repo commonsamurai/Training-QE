@@ -1,0 +1,56 @@
+import React from 'react';
+import { Link, Outlet} from 'react-router-dom';
+import { BrowserRouter as Router,Route,Routes,NavLink} from 'react-router-dom';
+import AddCourse from './AddCourse.js';
+import UpdateCourse from './UpdateCourse.js';
+import ViewCourse from './ViewCourse.js';
+import CourseDeactivate from './CourseDeactivate.js';
+// import ViewFeedback from './Course/ViewFeedback.js';
+// import CourseFeedback from './Course/CourseFeedback';
+// import Button from 'react-bootstrap/Button';
+// import Nav from 'react-bootstrap/Nav';
+// import AddCourse from './AddCourse';
+import Routing from '../routing';
+function Course(){
+    return (
+      <div className='bg-secondary text-white text-center addCourse'>
+        <div style={{textAlign:"center",width:"100%"}} >
+       
+              <h2 className='text-info'>COURSE INFORMATION</h2>
+
+            
+            {/* <Nav className="flex-column bg-dark " style={{width: 200, height: 500}}> */}
+            {/* style={{width: 200, height: 500}} */}
+            <div style={{marginTop:"30px"}}>
+                <Link  to="/addcourse"><button className='btn btn-warning'>Add Course</button></Link> {" "}|{" "}                
+                <Link  to="/updatecourse"><button className='btn btn-warning'>Update Course</button></Link>{" "}|{" "} 
+                <Link  to="/viewcourse"><button className='btn btn-warning'>View Course</button></Link>{" "}|{" "} 
+                {/* <Link  to="coursefeedback"><button className='btn btn-warning'>Course Feedback</button></Link>{" "}|{" "}  */}
+                 <Link  to="viewfeedbackrating"><button className='btn btn-warning'>View Feedback Rating</button></Link>   {" "}|{" "}
+                <Link  to="/deactivate"><button className='btn btn-warning'>Course Deactivate</button></Link>   {" "}{" "}
+                </div>
+          {/* </Nav> */}
+          
+          {/* <Routes> */}
+        {/* <Route path="/course/*" element={<Course/>} /> */}
+        {/* <Route index={true} element={<Course />}></Route> */}
+            {/* <Route path="/addcourse" element={<AddCourse />} /> */}	 	  	  		    	   	 	   	 	
+            {/* <Route path="/updatecourse" element={<UpdateCourse />} /> */}
+            {/* <Route path="/viewcourse" element={<ViewCourse />} /> */}
+            {/* <Route path="coursefeedback" element={<CourseFeedback />} /> */}
+            {/* <Route path="viewfeedbackrating" element={<CourseRating />} /> */}
+            {/* <Route path="/deactivate" element={<CourseDeactivate />} /> */}
+               
+        {/* </Routes> */}
+        <Routing/>
+          </div>
+
+          {/* <Outlet />          */}
+          
+
+      </div>
+      ); 
+    }
+  export default Course;
+  
+  

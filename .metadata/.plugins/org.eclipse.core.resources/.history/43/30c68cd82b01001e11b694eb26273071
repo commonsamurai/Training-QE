@@ -1,0 +1,81 @@
+import React, { useState } from "react";
+import {viewAssociateById} from "../Service/AssociateService"
+function ViewAssociate(){
+
+  const [records, setRecords] = useState({});
+  const [state, setState] = useState({
+    associateId: "",    
+    message:''
+
+  });
+  const styles={
+		label:{fontSize:"24px",fontWeight:'650'},
+		h2:{color:"#FF0000",marginLeft:'3%',fontWeight:"600"},
+		table:{width:"70%",marginLeft:"200px",textAlign:'center',minHeight:'85px',fontSize:'17px'},
+		th:{padding:'4px'},
+		td:{padding:'4px'}
+	}
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setState((prevProps) => ({
+      ...prevProps,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    // setState({ message: 'Associate details Viewed Successfully'});
+    event.preventDefault();
+    // console.log(state.message);
+    viewAssociateById(state.associateId).then(data => {
+      console.log("asso view",data)
+      setRecords(data);
+      
+    })
+    .catch((err) => { 
+      console.log(err)
+      setState({ message: err});
+   });
+  };  
+
+  return (
+    <div class="main">
+      <h3>View Associate by Associate Id</h3>
+
+      <form onSubmit= {handleSubmit}>
+        <div className="form-control">
+          <label>Associate Id</label>
+          <input type="text"  id="associateId" name="associateId" value={state.associateId} onChange={handleInputChange}/>   </div>
+            
+       
+              
+          <button id="submit" type="submit" style={{alignContent:"center"}} onClick={handleSubmit}>Get Details</button>
+      
+      </form>
+      <br></br>
+
+      
+    {records !=undefined &&
+        <>              
+       <table border="2" style={styles.table}>
+		   <tr> <th style={styles.th}>Associate Id</th> <th style={styles.th}>Associate Name</th><th style={styles.th}>Associate Email Id</th><th style={styles.th}>Associate Address</th></tr>
+			  {	 	  	  		    	   	 	   	 	
+			  //  records.map((obj) =>
+			        <tr >
+				       <td style={styles.td}>{records.associateId} </td>  
+				       <td style={styles.td}>{records.associateName} </td>
+				       <td style={styles.td}>{records.associateEmailId} </td>  
+				       <td style={styles.td}>{records.associateAddress} </td>  
+			        </tr>
+			    //  )
+		     }
+        </table>   
+       </>
+  }                     
+           
+    </div>
+  );
+
+    }
+  export default ViewAssociate;
+  

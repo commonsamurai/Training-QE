@@ -1,0 +1,53 @@
+import React, { useState } from "react";
+import './AddCourse.css';
+import {deactivate} from "../Service/CourseService"
+function CourseDeactivate(){
+  const [state, setState] = useState({
+    courseId: "",    
+    message:''
+
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setState((prevProps) => ({
+      ...prevProps,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (event) => {
+
+    deactivate(state.courseId).then(data => {
+      console.log("deactivate course return data ",data);
+      setState({ message: 'Course '+state.courseId+' is deactivated successfully.'});
+     })
+     .catch((err) => { 
+          console.log(err)
+          setState({ message: err});
+       });
+    event.preventDefault();
+    console.log(state.message);
+  };  
+
+  return (
+    <div class="main">
+      <h3>Course Deactivation</h3>
+
+      <form onSubmit= {handleSubmit}>
+        <div className="form-control">
+          <label>Course Id</label>
+          <input type="text"  id="courseId" name="courseId" value={state.courseId} onChange={handleInputChange}/>   </div>
+            
+       
+              
+          <button id="submit" type="submit" style={{alignContent:"center"}} onClick={handleSubmit}>Deactivate Course</button>
+      
+      </form>
+      <br></br>
+                     <div id="message" style={{color:"yellow"}}>{state.message}</div>
+    </div>
+  );
+}	 	  	  		    	   	 	   	 	
+  export default CourseDeactivate;
+  

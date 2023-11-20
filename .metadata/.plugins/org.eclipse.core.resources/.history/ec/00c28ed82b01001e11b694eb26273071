@@ -1,0 +1,105 @@
+
+let headers= {
+    'Authorization': "Bearer "+localStorage.getItem("token"),
+    'Content-Type': 'application/json',
+    "Access-Control-Allow-Methods": "POST, PUT, GET,OPTIONS,DELETE" ,      
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Origin,Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept,Authorization"          
+
+  }
+
+export  async function register(associateId,courseId) {
+    const response = await fetch('http://localhost:9093/register/'+associateId+"/"+courseId, {
+    method: 'POST',
+    headers,    
+    body: JSON.stringify(associateId)
+  })
+
+  return await response.json();  
+}
+
+export async function calculateFees(courseId) {
+  const response = await fetch('http://localhost:9093/admission/calculateFees/'+courseId, {
+  method: 'PUT',
+  headers,
+  body: JSON.stringify(courseId)
+})
+
+return await response.json();  
+}
+
+export  async function addfeedback(regNo,feedback,feedbackRating) {
+    const response = await fetch('http://localhost:9093/admission/feedback/'+regNo+"/"+feedback+"/"+feedbackRating, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(regNo)
+  })
+
+  return await response.json();  
+}	 	  	  		    	   	 	   	 	
+
+// export  default function addCourse(course) {
+   
+//       axios({  
+  
+//         url: "http://localhost:9091/addCourse",
+//         method: "POST",
+//         // JSON.parse(JSON.stringify(course)),
+       
+//         headers: {
+//             'Authorization': "Bearer "+localStorage.getItem("token"),
+//             'Content-Type': 'application/json',
+//             "Access-Control-Allow-Methods": "POST, PUT, GET,OPTIONS,DELETE" ,      
+//             "Access-Control-Allow-Origin": "*",
+//             "Access-Control-Allow-Headers": "Origin,Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept,Authorization"
+               
+//         },   
+      
+//         data: course,
+//       })
+//         .then((res) => {
+//             console.log(res);
+//             return res;
+//          })
+    
+//         // Catch errors if any
+//         .catch((err) => { 
+//             console.log(err)
+//            return err;
+            
+//         });
+//     }
+
+    
+  
+export async function highestFee(associateId) {	 	  	  		    	   	 	   	 	
+  //  console.log("view all course",localStorage.getItem("token"))
+  const options = {
+    headers,    
+  };
+  const response = await fetch('http://localhost:9093/admission/highestFee/'+associateId, options);
+  return await response.json();
+  
+}
+
+export async function viewFeedbackByCourseId(courseId) {
+  //  console.log("view all course",localStorage.getItem("token"))
+  const options = {
+    headers,   
+  };
+  const response = await fetch('http://localhost:9093/admission/viewFeedbackByCourseId/'+courseId, options);
+  return await response.json();
+  
+}
+  
+export async function makePayment(registartionId) {
+   console.log("feed",localStorage.getItem("token"))
+  const options = {
+    headers,
+  };
+  const response = await fetch('http://localhost:9093/admission/makePayment/'+registartionId, options);
+  return await response.json();
+  
+}
+
+	 	  	  		    	   	 	   	 	

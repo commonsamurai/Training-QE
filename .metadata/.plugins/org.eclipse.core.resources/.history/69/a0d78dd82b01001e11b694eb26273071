@@ -1,0 +1,89 @@
+import React, { useState } from "react";
+import './AddCourse.css';
+import {viewFeedback} from "../Service/CourseService"
+function CourseRating(){
+  const [records, setRecords] = useState([]);
+const [state, setState] = useState({
+    courseId: "",
+    rating:'',    
+    message:''
+
+  });
+  const styles={
+		label:{fontSize:"24px",fontWeight:'650'},
+		h2:{color:"#FF0000",marginLeft:'3%',fontWeight:"600"},
+		table:{width:"70%",marginLeft:"200px",textAlign:'center',minHeight:'85px',fontSize:'17px'},
+		th:{padding:'4px'},
+		td:{padding:'4px'}
+	}
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setState((prevProps) => ({
+      ...prevProps,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    console.log("insie subbmit")
+    viewFeedback(state.courseId).then(data => {
+      console.log("feedback",data)
+      setRecords(data);
+    })
+    .catch((err) => { 
+      console.log(err)
+      setState( {message:err});
+   });
+    // setState({ message: 'Thanks for your valuable feedback'});
+    event.preventDefault();
+    // console.log(state.message);
+  };  
+
+  return (
+    <div class="main">
+      <h3>Course Feedback Rating</h3>
+
+      <form >
+        <div className="form-control">
+          <label>Course Id</label>
+          <input type="text"  id="courseId" name="courseId" value={state.courseId} onChange={handleInputChange}/>
+        </div>
+        <div className="form-control">
+          <label>Rate Course from 1 to 5</label>
+          <input type="number"  id="rating" name="rating"  value={state.rating} onChange={handleInputChange}/>
+        </div>        
+
+        
+              
+          {/* <button id="submit" type="submit" style={{alignContent:"center"}} onClick={handleSubmit}>Submit</button> */}	 	  	  		    	   	 	   	 	
+          <button id="submit" type="submit" style={{alignContent:"center"}} onClick={handleSubmit}>Submit</button>
+     
+      </form>
+      <br></br>
+      {records !=undefined &&
+        <>    
+        Course Id : {state.courseId}    <br></br>      
+        Feedback Rating :{records}
+             {/* <table border="2" style={styles.table}>
+		   <tr> <th style={styles.th}>Course Id</th> <th style={styles.th}>Course Name</th><th style={styles.th}>Duration</th><th style={styles.th}>Course type</th><th style={styles.th}>Fees</th><th style={styles.th}>Ratings</th></tr>
+			  { 
+			
+			        <tr >
+				       <td style={styles.td}>{records.courseId} </td>  
+				       <td style={styles.td}>{records.courseName} </td>
+				       <td style={styles.td}>{records.duration} </td>  
+				       <td style={styles.td}>{records.courseType} </td>  
+				       <td style={styles.td}>{records.fees} </td>  
+				       <td style={styles.td}>{records.rating}</td>  
+				       
+			        </tr> */}
+			    
+		     {/* }           */}
+            {/* </table>    */}
+       </>
+      }   
+                     {/* <div id="message" style={{color:"yellow"}}>{state.message}</div> */}
+    </div>
+  );
+}
+export default CourseRating;	 	  	  		    	   	 	   	 	

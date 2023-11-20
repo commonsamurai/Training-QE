@@ -1,0 +1,99 @@
+import React, { useState } from "react";
+
+import { useEffect } from 'react';
+import './AddCourse.css';
+import {viewCourseById} from "../Service/CourseService"
+
+
+function ViewCourse(){
+  let [records, setRecords] = useState({});
+
+let data=[];
+  const styles={
+		label:{fontSize:"24px",fontWeight:'650'},
+		h2:{color:"#FF0000",marginLeft:'3%',fontWeight:"600"},
+		table:{width:"70%",marginLeft:"200px",textAlign:'center',minHeight:'85px',fontSize:'17px'},
+		th:{padding:'4px'},
+		td:{padding:'4px'}
+	}
+  let [state, setState] = useState({
+    courseId: "",    
+    message:''
+
+  });
+ 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setState((prevProps) => ({
+      ...prevProps,
+      [name]: value
+    }));
+  };
+
+  
+  const handleSubmit = (event) => {
+    // setState({ message: 'List of Instructors'});
+    event.preventDefault();  
+    
+    viewCourseById(state.courseId).then(data => {	 	  	  		    	   	 	   	 	
+      console.log("view",data)
+      records=data;
+      setRecords(data);
+       console.log("viewRecords",records) 
+    })
+    .catch((err) => { 
+      console.log(err)
+      setState({ message: err});
+   });
+     
+     
+  };   
+
+  return (
+    <div className="main">
+      <h3>View Course By Id</h3>
+
+      <form onSubmit= {handleSubmit}>
+        <div className="form-control">
+          <label>Course Id</label>
+          <input type="text"  id="courseId" name="courseId" value={state.courseId} onChange={handleInputChange}/>   </div>
+            
+       
+              
+          <button id="submit" type="submit" style={{alignContent:"center"}} onClick={handleSubmit}>View Course</button>
+      
+      </form>
+      <br></br>
+                     {/* <div id="message" style={{color:"yellow"}}>{state.message}</div> */}
+
+    {records !=undefined &&
+        <>              
+             <table border="2" style={styles.table}>
+		   <tr> <th style={styles.th}>Course Id</th> <th style={styles.th}>Course Name</th><th style={styles.th}>Duration</th><th style={styles.th}>Course type</th><th style={styles.th}>Fees</th><th style={styles.th}>Ratings</th></tr>
+			  { 
+			  //  records.map((obj) =>
+			        <tr >
+				       <td style={styles.td}>{records.courseId} </td>  
+				       <td style={styles.td}>{records.courseName} </td>
+				       <td style={styles.td}>{records.duration} </td>  
+				       <td style={styles.td}>{records.courseType} </td>  
+				       <td style={styles.td}>{records.fees} </td>  
+				       <td style={styles.td}>{records.rating}</td>  
+				       
+			        </tr>
+			    //  )
+		     }	 	  	  		    	   	 	   	 	
+
+        
+            </table>   
+       </>
+  }                     
+
+
+    </div>
+  );
+}
+  
+    
+  export default ViewCourse;
+  

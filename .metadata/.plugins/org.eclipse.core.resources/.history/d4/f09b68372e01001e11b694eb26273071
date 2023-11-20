@@ -1,0 +1,8 @@
+jwtSecret= jwtSecretKey
+jwtExpirationMs= 86400000
+server.port= 9099
+spring.data.mongodb.database=securitydb
+spring.data.mongodb.host=localhost
+spring.data.mongodb.port=27017
+spring.application.name = SecurityService
+

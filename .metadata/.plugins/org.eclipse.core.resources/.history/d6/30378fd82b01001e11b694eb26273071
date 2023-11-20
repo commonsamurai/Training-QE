@@ -1,0 +1,43 @@
+
+let headers= {
+    'Authorization': "Bearer "+localStorage.getItem("token"),
+    'Content-Type': 'application/json',
+    "Access-Control-Allow-Methods": "POST, PUT, GET,OPTIONS,DELETE" ,      
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Origin,Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept,Authorization"          
+
+  }
+
+export  async function addAssociate(associate) {
+    const response = await fetch('http://localhost:9092/associate/addAssociate', {
+    method: 'POST',
+    headers, 
+    body: JSON.stringify(associate)
+  })
+
+  return await response.json();  
+}
+
+export async function updateAssociate(associateId,address) {
+  const response = await fetch('http://localhost:9092/associate/updateAssociate/'+associateId+"/"+address, {
+  method: 'PUT',
+  headers,  
+  body: JSON.stringify(associateId)
+})
+
+return await response.json();  
+}
+ 
+export async function viewAssociateById(associateId) {
+  //  console.log("view all course",localStorage.getItem("token"))
+
+  const response = await fetch('http://localhost:9092/associate/viewByAssociateId/'+associateId, {
+  method: 'GET',
+  headers,
+
+})
+
+return await response.json();
+  
+}	 	  	  		    	   	 	   	 	
+  

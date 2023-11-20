@@ -1,0 +1,302 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
+import { Route } from 'react-router-dom';
+import { MemoryRouter} from 'react-router';
+import { mount } from 'enzyme';
+import { Router } from 'react-router-dom'
+import { render,fireEvent, waitFor,wait,act} from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import App from './App';
+// import {Display} from './Components/CoursesOffered';
+import Course from './Course/Course';
+import AddCourse from './Course/AddCourse';
+import UpdateCourse from './Course/UpdateCourse';
+import ViewCourse from './Course/ViewCourse';
+import CourseDeactivate from './Course/CourseDeactivate';
+import CourseRating from './Course/CourseRating';
+
+import Admission from './Admission/Admission';
+import AddFeedback from './Admission/AddFeedback';
+import AssociateRegistration from './Admission/AssociateRegistration';
+import TotalFees from './Admission/FeeDetails';
+import HighestFeeCalculation from './Admission/HighestFeeCalculation';
+import MakePayment from './Admission/MakePayment';
+import ViewFeedback from './Admission/ViewFeedback';
+
+import Associate from './Associate/Associate';
+import AddAssociate from './Associate/AddAssociate';
+import UpdateAssociate from './Associate/UpdateAssociate';
+
+import ViewAssociate from './Associate/ViewAssocite';
+import register from './Service/AdmissionService';
+import calculateFees from './Service/AdmissionService';
+import addfeedback from './Service/AdmissionService';
+import viewFeedbackByCourseId from './Service/AdmissionService';
+import makePayment from './Service/AdmissionService';
+
+import addAssociate from './Service/AssociateService';
+import updateAssociate from './Service/AssociateService';
+import viewAssociateById from './Service/AssociateService';
+
+import addCourse from './Service/CourseService';
+import updateCourse from './Service/CourseService';
+import viewAllCourse from './Service/CourseService';
+import viewCourseById from './Service/CourseService';
+import viewFeedback from './Service/CourseService';
+import deactivate from './Service/CourseService';
+
+import validateUser from './Service/LoginService';
+import { logStatus } from './Service/LoginService';
+import {addCourseDetails} from './Service/CourseService';
+import { courseArray } from './Service/CourseService';
+// ************* Routing in App Component*******************
+import sinon from 'sinon';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter'
+import fetchMock from "jest-fetch-mock";
+
+// jest.mock('node-fetch');
+// import fetch from 'node-fetch';
+// const {Response} = jest.requireActual('node-fetch');
+const mock = new MockAdapter(axios);
+fetchMock.enableMocks();
+describe('Testing', () => {	 	  	  		    	   	 	   	 	
+    
+ 
+it('should show Login component when Login Link is clicked', () => {
+
+	  try{
+	      const { container, getByText } = render(
+    		      <MemoryRouter>
+                      <App/>
+                    </MemoryRouter>
+        
+	          )
+	  
+	           //fireEvent.click(getByText(/Login/i))
+	            console.log("%%%%%%%%%%%%%%%%%%%%%%%%%")
+	          console.log(container.innerHTML)
+		        expect(container.innerHTML).toMatch('User Name')
+		}
+		catch(e){
+			fail("Expected Text 'Login' is not displayed correctly.");
+		}
+  });
+  
+  it("should display the message for addCourseDetails after clicking button in AddCourse form", async () => {
+          
+    const mockedData = [
+    { courseId: 'C102', courseName: 'Java', fees: 1000, duration: 3, courseType: 'basic', ratings: 4 },
+    ];
+
+  jest.spyOn(global, 'fetch').mockImplementation(() =>
+    Promise.resolve({
+      json: () => Promise.resolve(mockedData),
+    })
+  );
+
+  await act(async () => {
+    const component = mount(<AddCourse />);
+   
+            component.find('#courseId').simulate('change', {target: {value: 'C100'}});
+    		component.find('#courseName').simulate('change', {target: {value: 'Java'}});
+    		component.find('#fees').simulate('change', {target: {value: 1000}});
+    		component.find('#duration').simulate('change', {target: {value: 4}});
+    		component.find('#courseType').simulate('change', {target: {value: 'middle'}});
+     await component.find('button').simulate('click');
+     await new Promise((resolve) => setTimeout(resolve, 2)); // Wait for asynchronous operations to complete
+   
+    console.log("((((((((((((((((((((addCourseDetails))))))))", component.text());
+       expect(component.text().toLowerCase().replace(/\s/g, '').replace('(','').replace(')','').replace(':','')).toMatch("courseaddedsuccessfully");
+  });
+
+  global.fetch.mockRestore();
+    
+});
+
+it('Should render records correctly for ViewCourse', async () => {
+      
+  const mockedData = { courseId: 'C102', courseName: 'Java', fees: 1000, duration: 3, courseType: 'basic', ratings: 4 }
+  
+
+  jest.spyOn(global, 'fetch').mockImplementation(() =>
+    Promise.resolve({
+      json: () => Promise.resolve(mockedData),
+    })
+  );
+
+      await act(async () => {
+        const component = mount(<ViewCourse />);
+        // const {rerender} = render(<ViewCourse />);
+        component.find('#courseId').simulate('change', { target: { value: 'C102' } });
+         await component.find('button').simulate('click');
+         await new Promise((resolve) => setTimeout(resolve, 5)); // Wait for asynchronous operations to complete
+        // component.update();
+        //  rerender(<ViewCourse />)
+        // component.update(); // Update the component to reflect the state change
+        console.log("(((((((((((((((((((())))))))))))))))))", component.text());
+       expect(component.text().toLowerCase().replace(/\s/g, '').replace('(','').replace(')','').replace(':','')).toMatch("c102java3basic1000");
+        
+    });
+
+      global.fetch.mockRestore();
+   });
+
+      it('should show AddFeedback component when Add Feedback Link is clicked', () => {
+
+	  try{
+	      
+    		const { container, getByText } = render(
+    	    <MemoryRouter>
+                <Admission/>
+            </MemoryRouter>	
+	  )
+	           fireEvent.click(getByText(/Add Feedback/i))
+	           console.log("$$$$$$$$$",container.innerHTML)
+		        expect(container.innerHTML).toMatch('Comments')
+		}
+		catch(e){
+		  //   console.log(e);
+			fail("Expected Text 'Comments' is not displayed correctly.");
+		}
+  }); 
+  
+  it("should display the message for associateRegistration after clicking button in associateRegistration form", async () => {
+          
+    const mockedData = '789';
+
+  jest.spyOn(global, 'fetch').mockImplementation(() =>
+    Promise.resolve({
+      json: () => Promise.resolve(mockedData),
+    })
+  );
+
+  await act(async () => {
+    const component = mount(<AssociateRegistration/>);
+   
+            component.find('#courseId').simulate('change', {target: {value: 'C102'}});
+    		component.find('#associateId').simulate('change', {target: {value: 'A101'}});
+     await component.find('button').simulate('click');
+     await new Promise((resolve) => setTimeout(resolve, 2)); // Wait for asynchronous operations to complete
+   
+   
+       expect(component.text().toLowerCase().replace(/\s/g, '')).toMatch("registeredsuccessfully,yourregistrationid:789");
+  });
+
+  global.fetch.mockRestore();
+    
+});
+
+
+it('Should render records correctly for ViewFeedback', async () => {
+      
+  const mockedData="Good Course"
+  
+
+  jest.spyOn(global, 'fetch').mockImplementation(() =>
+    Promise.resolve({
+      json: () => Promise.resolve(mockedData),
+    })
+  );
+
+  await act(async () => {
+    const component = mount(<ViewFeedback />);
+    component.find('#courseId').simulate('change', { target: { value: 'C102' } });
+     await component.find('button').simulate('click');
+     await new Promise((resolve) => setTimeout(resolve, 5)); 
+    console.log("(((((((((((((((((((( ViwFeedback in Admission ))))))))))))))))))", component.text());
+   expect(component.text().toLowerCase().replace(/\s/g, '').replace('(','').replace(')','').replace(':','')).toMatch("goodcourse");
+    
+  });
+
+  global.fetch.mockRestore();
+});
+     it('should show AddAssociate component when Add Associate Link is clicked', () => {
+
+	  try{
+	      
+    		const { container, getByText } = render(
+    	    <MemoryRouter>
+                <Associate/>
+            </MemoryRouter>
+	  )
+	           fireEvent.click(getByText(/Add Associate/i))
+		        expect(container.innerHTML).toMatch('Address')
+		}
+		catch(e){
+		  //   console.log(e);
+			fail("Expected Text 'Address' is not displayed correctly.");
+		}
+  }); 
+
+
+
+it("should display the message for addAssociate after clicking button in AddAssociate form", async () => {
+          
+    // const mockedData = [
+    // data: {associateId:'A101',associateName:"Jessy",associateEmailId:"jessy@outlook.com",associateAddress:"Alaska"}
+    // ];
+    const mockedData = { associateId:'A101',associateName:"Jessy",associateEmailId:"jessy@outlook.com",associateAddress:"Alaska" }
+  
+
+  jest.spyOn(global, 'fetch').mockImplementation(() =>
+    Promise.resolve({
+      json: () => Promise.resolve(mockedData),
+    })
+  );
+
+  await act(async () => {
+    const component = mount(<AddAssociate />);
+   
+            component.find('#associateId').simulate('change', {target: {value: 'A102'}});
+    		component.find('#associateName').simulate('change', {target: {value: 'Betsy'}});
+    		component.find('#associateAddress').simulate('change', {target: {value: 'Alabama'}});
+    		component.find('#associateEmailId').simulate('change', {target: {value: 'betsy@gmail.com'}});
+     await component.find('button').simulate('click');
+     await new Promise((resolve) => setTimeout(resolve, 2)); // Wait for asynchronous operations to complete
+   
+    console.log("((((((((((((((((((((Add Associate))))))))", component.text());
+       expect(component.text().toLowerCase().replace(/\s/g, '').replace('(','').replace(')','').replace(':','')).toMatch("associatehasbeenaddedsuccessfully");
+  });
+
+  global.fetch.mockRestore();
+    
+});
+
+it("should display the message for updateAssociate after clicking button in UpdateAssociate form", async () => {
+ 
+
+const mockedData = { associateId:'A101',associateName:"Jessy",associateEmailId:"jessy@outlook.com",associateAddress:"Alaska" }
+  
+
+  jest.spyOn(global, 'fetch').mockImplementation(() =>
+    Promise.resolve({
+      json: () => Promise.resolve(mockedData),
+    })
+  );
+
+  await act(async () => {
+    const component = mount(<UpdateAssociate />);
+   
+    component.find('#associateId').simulate('change', { target: { value: 'A101' } });
+    component.find('#associateAddress').simulate('change', {target: {value: 'Alaska'}});
+     await component.find('button').simulate('click');
+     await new Promise((resolve) => setTimeout(resolve, 2)); // Wait for asynchronous operations to complete
+   
+    console.log("((((((((((((((((((((Update Associate Address))))))))", component.text());
+    expect(component.text().toLowerCase().replace(/\s/g, '').replace('(','').replace(')','').replace(':','')).toMatch("associateaddressupdatedsuccessfully");
+  });
+
+  global.fetch.mockRestore();
+
+
+});
+
+
+  
+});
+
+
+
+	 	  	  		    	   	 	   	 	

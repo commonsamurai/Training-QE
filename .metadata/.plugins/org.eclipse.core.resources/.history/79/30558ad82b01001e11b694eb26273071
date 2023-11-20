@@ -1,0 +1,56 @@
+import React,{useState} from 'react';
+import { calculateFees } from '../Service/AdmissionService';
+function TotalFees(){
+    const [state, setState] = useState({
+        associateId: "",   
+        fee:0, 
+        message:''
+    
+      });
+    
+      const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setState((prevProps) => ({
+          ...prevProps,
+          [name]: value
+        }));
+      };
+    
+      const handleSubmit = (event) => {
+        
+        calculateFees(state.associateId).then(data => {
+          setState({fee:data})
+        console.log("feed ",data);
+        // setState({ message: 'Total Fee Details Generated Successfully'});
+       })
+       .catch((err) => { 
+         console.log(err)
+         setState({ message: err});
+      });
+        // setState({ message: 'Total Fee Details Generated Successfully'});
+        event.preventDefault();
+        console.log(state.message);
+      };  
+    
+      return (
+        <div class="main">
+          <h3>Total Fee Details</h3>
+          <p></p>
+    
+          <form onSubmit= {handleSubmit}>
+            <div className="form-control">
+              <label>Associate Id</label>
+              <input type="text"  id="associateId" name="associateId" value={state.associateId} onChange={handleInputChange}/>   </div>
+                
+           
+                  
+              <button id="submit" type="submit" style={{alignContent:"center"}} onClick={handleSubmit}>Get Fees</button>
+          
+          </form>
+          <br></br>
+                         <div id="message" style={{color:"yellow"}}>Total Fee: {state.fee}</div>
+        </div>
+      );
+    }	 	  	  		    	   	 	   	 	
+  export default TotalFees;
+  

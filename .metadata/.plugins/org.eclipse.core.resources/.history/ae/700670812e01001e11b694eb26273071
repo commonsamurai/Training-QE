@@ -1,0 +1,16 @@
+spring.data.mongodb.database=test
+spring.data.mongodb.port=27017
+spring.data.mongodb.host=localhost
+server.port=9091
+eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka
+spring.application.name=courseapp
+eureka.client.instance.preferIpAddress = true
+#logging.config=src/main/resources/logger.xml
+
+
+logging.file.name=log/mylogs.log
+##logging.level.com.*=INFO,ERROR
+#logging.level.root=WARN,INFO
+#
+#logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+#logging.pattern.file=%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n

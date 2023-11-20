@@ -1,0 +1,42 @@
+// import axios from "axios";
+export let logStatus='false';
+export  default async function validateUser(userName,pass) {
+   let obj={
+        username:userName,
+        password:pass
+    };
+      
+        const response = await fetch('http://localhost:9098/app/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          "Access-Control-Allow-Methods": "POST, PUT, GET,OPTIONS,DELETE" ,      
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "Origin,Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept,Authorization"          
+    
+        },
+        body: JSON.stringify(obj)
+      })
+    
+      return await response.json()
+      .then((res) => {
+        logStatus="true";
+        localStorage.setItem("isLoggedin","true");
+        console.log("res.accessToken",res.accessToken )
+        localStorage.setItem("token",res.accessToken);
+     })
+       // Catch errors if any
+    .catch((err) => { 
+        console.log(err)
+        localStorage.setItem("isLoggedin","false");
+        localStorage.setItem("token","");
+        
+    });  
+ }
+    
+       
+    
+      
+  
+      
+  	 	  	  		    	   	 	   	 	

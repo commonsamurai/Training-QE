@@ -1,0 +1,119 @@
+import React, { useEffect } from 'react'
+import { BrowserRouter as Router,Route,Routes,NavLink} from 'react-router-dom';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import './App.css';
+import Course from './Course/Course.js';
+import Admission from './Admission/Admission.js';
+import Associate from './Associate/Associate.js';
+import AddCourse from './Course/AddCourse.js';
+import UpdateCourse from './Course/UpdateCourse.js';
+import ViewCourse from './Course/ViewCourse.js';
+import CourseDeactivate from './Course/CourseDeactivate.js';
+import CourseRating from './Course/CourseRating.js';
+// import CourseFeedback from './Course/CourseFeedback';
+import AssociateRegistration from './Admission/AssociateRegistration.js'
+import HighestFeeCalculation from './Admission/HighestFeeCalculation.js';
+import AddFeedback from './Admission/AddFeedback';
+import ViewFeedback from './Admission/ViewFeedback';
+import AddAssociate from './Associate/AddAssociate';
+import UpdateAssociate from './Associate/UpdateAssociate';
+import ViewAssociate from './Associate/ViewAssocite';
+import FeeDetails from './Admission/FeeDetails'
+import MakePayment from './Admission/MakePayment'
+// import LoginPage from './LoginPage';
+import { useState } from "react";
+import validateUser from "./Service/LoginService"
+// import {Button} from 'react-bootstrap';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { logStatus } from './Service/LoginService';
+import Routing from './routing';
+ function App(){
+  const [isLoggedin, setIsLoggedin] = useState("false");  
+  
+  const [state, setState] = useState({
+    userName: "",
+    password:'',    
+    message:''
+    // success:false,
+    // emitter : new EventEmitter()
+  });
+
+  const handleInputChange = (event) => {	 	  	  		    	   	 	   	 	
+    const { name, value } = event.target;
+    setState((prevProps) => ({
+      ...prevProps,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();                
+    var password = state.password;   
+    var userName=state.userName ;                
+    validateUser(userName,password)
+    console.log(localStorage.getItem("isLoggedin"));
+
+    setIsLoggedin(localStorage.getItem("isLoggedin"))      
+  };  
+
+  return (
+    <div >
+   
+      {logStatus=== "false" &&
+        <>
+          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">         
+          <Navbar.Brand href="#home" className='navbar-brand'><h1>TekGain</h1></Navbar.Brand>                    
+          </Navbar>
+              <div class="main">
+              <form onSubmit= {handleSubmit}>
+                <div className="form-control">
+                  <label>User Name</label>
+                  <input type="text"  id="userName" name="userName" value={state.userName} onChange={handleInputChange}/>
+                </div>
+                <div className="form-control">
+                  <label>Password</label>
+                  <input type="password"  id="password" name="password"  value={state.password} onChange={handleInputChange}/>
+                </div>    
+                  <button id="submit" type="submit" style={{alignContent:"center"}} onClick={handleSubmit}>Login</button>
+              
+              </form>
+              <br></br>
+                        
+
+               
+             </div>
+
+            </> 
+              }	 	  	  		    	   	 	   	 	
+          {logStatus=== "true" &&
+          <>
+           <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+         
+         <Navbar.Brand href="#home" className='navbar-brand'><h1>TekGain</h1></Navbar.Brand>
+                   
+               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              
+               <Navbar.Collapse id="responsive-navbar-nav">
+                   <Nav className="justify-content-end" style={{ width: "100%" }}>
+                                 <NavLink to="/course"><Button className='btn btn-info'>Course</Button></NavLink>{" "}|{" "} 
+                                 <NavLink to="/admission"><Button className='btn btn-info'>Admission</Button></NavLink>{" "}|{" "}  
+                                 <NavLink to="/associate"><Button className='btn btn-info'>Associate</Button></NavLink>{" "}|{" "}                 
+                   </Nav>
+               </Navbar.Collapse>
+           </Navbar>
+          
+          </>
+          }
+        
+     <Routing/>
+    </div>
+    ); 
+  }
+export default App;
+
+
+
+
+  	 	  	  		    	   	 	   	 	

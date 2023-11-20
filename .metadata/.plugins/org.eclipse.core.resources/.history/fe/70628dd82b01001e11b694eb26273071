@@ -1,0 +1,286 @@
+import React, { useState } from "react";
+// import './AddCourse.css';
+import {addCourseDetails} from "../Service/CourseService"
+
+function AddCourse() {
+  const [state, setState] = useState({
+    courseId: "",
+    courseName: "",
+    fees:0,
+    duration:0,
+    courseType:'',
+    ratings:'',  
+
+  });
+  const [message, setMessage] = useState("");
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setState((prevProps) => ({
+      ...prevProps,
+      [name]: value
+    }));
+  };
+
+const handleSubmit = (event) => {
+
+    // var str=validation();
+    // if(str != '') {
+    //   setState({ message: str});
+      // throw new Error(str);
+    // }else{  
+        console.log("state",state);
+        addCourseDetails(state).then(data => {
+    //   console.log("add course return data ",data);
+      setMessage('Course added successfully');
+      })
+      .catch((err) => { 
+        console.log(err)
+        setMessage( err);
+     });
+  //  console.log(res);
+   
+    //  }
+    event.preventDefault();
+    console.log(state.message);
+  };  
+  const validation=()=> {	 	  	  		    	   	 	   	 	
+    // var d:any = 
+    var str='';
+
+    if(state.courseId == undefined || state.courseId.length <= 0) {
+      str += 'Provide value for course id ';
+    }
+    if(state.courseName == undefined || state.courseName.length <= 0) {
+      str += 'Provide value for course name ';
+    }
+    if(state.courseType == undefined || state.courseType.length <= 0) {
+      str += 'Provide value for course type';
+    }
+    if(state.duration == undefined || state.duration.length <= 0) {
+      str += 'Provide value for duration';
+    }
+    if(state.fees == undefined || state.fees.length <= 0) {
+      str += 'Provide value for fees';
+    }
+  
+    return str;
+    
+  }
+
+  return (
+    <div className="main">
+      <h3>Add Course</h3>
+
+      <form onSubmit={handleSubmit}>
+        <div className="form-control">
+          <label>Course Id</label>
+          <input type="text"  id="courseId" name="courseId" value={state.courseId} onChange={handleInputChange}/>
+        </div>
+        <div className="form-control">
+          <label>Course Name</label>
+          <input type="text"  id="courseName" name="courseName"  value={state.courseName} onChange={handleInputChange}/>
+        </div>
+        <div className="form-control">
+          <label>Fees</label>
+          <input type="number" id="fees" name="fees"  value={state.fees} onChange={handleInputChange}/>
+        </div>
+        <div className="form-control">
+          <label>Duration in Months</label>
+          <input type="number" id="duration" name="duration"  value={state.duration} onChange={handleInputChange}/>
+        </div>
+
+        <div className="form-control">
+          <label>Course Type</label>
+          <input type="text" id="courseType" name="courseType"  value={state.courseType} onChange={handleInputChange}/>
+        </div>
+        
+          <button id="submit" type="submit" style={{alignContent:"center"}} onClick={handleSubmit}>Add Course</button>
+       
+      </form>
+      <br></br>
+                     <div id="message" style={{color:"yellow"}}>{message}</div>
+    </div>
+  );
+}	 	  	  		    	   	 	   	 	
+export default AddCourse;
+
+
+
+
+
+// import React,{Component} from 'react';
+
+// const styles={
+//   message:{
+//     marginLeft:'15%',
+//     fontSize:'20px',
+//     fontWeight:"650"
+//   },
+//     label:{
+//       fontWeight:"600",
+//       marginLeft:"7%"
+//     },
+//       button:{
+//         minHeight:'2.4em',
+//         width:'100px',
+//         marginLeft:'10px',
+//         backgroundColor:'#4B6043',
+//         color:'#FFFFFF',
+//         borderRadius:'5px',
+//         fontSize:'14px'
+//     },
+//     input:{
+//       width:'15em',
+//       borderTop:'none',
+//       borderLeft:'none',
+//       borderRight:'none',
+//       borderBottom:'1px solid #053553',
+//       backgroundColor:'transparent',
+//       fontSize:'17px'
+//     },
+//     h2:{	 	  	  		    	   	 	   	 	
+//       marginLeft:'15%'
+//     },
+//     table:{
+//       width:"50%",
+//       backgroundColor:"#FFDFD3",
+//       height:"400px",
+//       marginLeft:"180px",
+//       paddingTop:"20px",
+//       border:"5px double #000000",
+//       fontSize:'18px'
+//     },
+//     td:{
+//       marginLeft:"15px"
+//     }
+//     }
+
+// class AddCourse extends Component (){
+//   constructor(props){
+//     super(props);
+//     this.state={
+//       courseId:'',
+//       courseName:'',
+//       fees:'',
+//       duration:0,
+//       courseType:'',
+//       instructorName:'',
+//       addCourse:'',
+//       addMore:'',
+//       message:''
+//     }
+//   }
+
+//   handleMessage=(event)=>{  
+//     this.setState({ message: 'Course added successfully'});
+//     event.preventDefault();
+//   }	 	  	  		    	   	 	   	 	
+
+//   handleCourseId=(event)=>{
+//     this.setState({ courseId: event.target.value });
+//   }
+//   handleCourseName=(event)=>{
+//     this.setState({ courseName: event.target.value });
+//   }
+//   handleFees=(event)=>{   
+//       this.setState({fees:event.target.value});
+//     }
+//   handleDuration=(event)=>{
+//     this.setState({ duration: event.target.value });
+//   }
+//   handleCourseType=(event)=>{
+//     this.setState({ courseType: event.target.value });
+//   }
+//   handleInstructorName=(event)=>{
+//     this.setState({ instructorName: event.target.value });
+//   }
+//   handleAddCourse=(event)=>{
+//     this.setState({ addCourse: event.target.value });
+//   }
+//   handleAddMoreInstructor=(event)=>{
+//     this.setState({ addMore: event.target.value });
+//   }
+
+//   render(){
+//     return (
+
+//       <div>
+       
+            
+//             <h2 style={styles.h2}>In AddCourse</h2>
+          
+//             <table border="0" style={styles.table}>
+//                         <tr>
+//                            <td> 
+//                               <label style={styles.label}>Course ID </label>
+//                             </td>
+//                             <td style={styles.td}>
+//                                <input style={styles.input} id='courseId' type='text' onChange={this.handleCourseId}/> 
+//                             </td>
+//                         </tr>
+//                         <tr>
+//                            <td> 
+//                               <label style={styles.label}>Course Name </label>
+//                             </td>
+//                             <td style={styles.td}>
+//                                <input style={styles.input} id='courseName' type='text' onChange={this.handleCourseName}/> 
+//                             </td>
+//                         </tr>
+                       
+//                          <tr>
+//                            <td>    
+//                                <label>Fees </label>
+//                             </td>
+//                             <td>
+//                                <input id='fees' type='number' onChange={this.handleFees} />
+//                           </td>
+//                         </tr> *
+                        
+//                         <tr>
+//                             <td> 
+//                                 <label style={styles.label}>Duration in Months </label>
+//                             </td>
+//                             <td style={styles.td}>
+//                                <input style={styles.input} id='duration' type='number' onChange={this.handleDuration}  />                        
+//                            </td>
+//                         </tr> 
+//                         <tr>
+//                             <td> 
+//                                <label style={styles.label}>Course Type </label>
+//                             </td>
+//                             <td style={styles.td}>
+//                                <textarea style={styles.input} id='courseType' type='text' onChange={this.handleCourseType}  />
+//                             </td>
+//                         </tr> 
+                      
+//                         <tr>
+//                             <td> 
+//                                 <label style={styles.label}>Instructor Name </label>
+//                             </td>
+//                             <td style={styles.td}>
+//                                 <input style={styles.input} id='instructorName' type="text" onChange={this.handleInstructorName}   />
+//                             </td>
+//                             <td colSpan="2">
+//                                 <button style={styles.button} id="addMore" onClick={this.handleAddMoreInstructor}> + </button>                            
+//                             </td>
+//                         </tr>  
+
+                      
+//                         <tr>
+//                             <td colSpan="2">
+//                                 <button style={styles.button} id="addCourse" onClick={this.handleAddCourse}> Add Course </button>                            
+//                             </td>
+//                         </tr>                      
+//                       </table>
+//               <br></br>
+//                 <div id="message" style={styles.message}>{this.state.message}</div>
+//        </div>
+//     );
+//   }	 	  	  		    	   	 	   	 	
+// }
+  
+//   export default AddCourse;
+  
+
+

@@ -1,0 +1,36 @@
+import React from 'react';
+import { Link, Outlet} from 'react-router-dom';
+// import Button from 'react-bootstrap/Button';
+// import Nav from 'react-bootstrap/Nav';
+// import AddCourse from './AddCourse';
+import Routing from '../routing';
+function Associate(){
+    return (
+      <div className='bg-secondary text-white text-center' >
+        <div style={{textAlign:"center",width:"100%"}} >
+       
+             <h2 className='text-info'>ASSOCIATE INFO</h2>
+
+            
+            {/* <Nav className="flex-column bg-dark " style={{width: 200, height: 500}}> */}
+            {/* style={{width: 200, height: 500}} */}
+               <div style={{marginTop:"30px"}}>
+                <Link  to="addassociate"><button className='btn btn-warning'>Add Associate</button></Link> {" "}|{" "}                
+                <Link  to="updateassociate"><button className='btn btn-warning'>Update Associate</button></Link>{" "}|{" "} 
+                <Link  to="viewassociate"><button className='btn btn-warning'>View Associate</button></Link>{" "} {" "} 
+                </div>
+                
+          {/* </Nav> */}
+          
+
+          </div>
+        <Routing/>
+           <Outlet />         
+          
+
+      </div>
+      ); 
+    }
+  export default Associate;
+  
+  	 	  	  		    	   	 	   	 	

@@ -1,0 +1,79 @@
+import React,{useState} from 'react';
+import { highestFee } from '../Service/AdmissionService';
+function HighestFeeCalculation(){
+  const styles={
+		label:{fontSize:"24px",fontWeight:'650'},
+		h2:{color:"#FF0000",marginLeft:'3%',fontWeight:"600"},
+		table:{width:"30%",marginLeft:"440px",textAlign:'center',minHeight:'85px',fontSize:'17px'},
+		th:{padding:'4px'},
+		td:{padding:'4px'}
+	}
+  const [records, setRecords] = useState([]);
+  const [state, setState] = useState({
+    associateId: "",    
+    message:'',
+    totalFee:0
+
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setState((prevProps) => ({
+      ...prevProps,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    highestFee(state.associateId,state.courseId).then(data => {
+      console.log("records ",data);
+      setRecords(data);
+     })
+     .catch((err) => { 
+       console.log(err)
+       setState({ message: err});
+    });
+    // setState({ message: 'Highest Fee Details Generated Successfully'});
+    event.preventDefault();
+    // console.log(state.message);
+  };  
+
+  return (
+    <div class="main">
+      <h3>Associate Highest Fee</h3>
+
+      <form onSubmit= {handleSubmit}>
+        <div className="form-control">
+          <label>Associate Id</label>
+          <input type="text"  id="associateId" name="associateId" value={state.associateId} onChange={handleInputChange}/>   </div>
+         <button id="submit" type="submit" style={{alignContent:"center"}} onClick={handleSubmit}>Submit</button>
+      
+      </form>
+      <br></br>
+      {records !=undefined &&
+        <>              
+             <table border="2" style={styles.table}>
+		   <tr>  <th style={styles.th}>Course Id</th></tr>
+			  {	 	  	  		    	   	 	   	 	
+			  //  records.map((obj) =>
+			        <tr >
+				       {/* <td style={styles.td}>{records.registrationId} </td>   */}
+				       <td style={styles.td}>{records} </td>
+				       {/* <td style={styles.td}>{records.associateId} </td>   */}
+				       {/* <td style={styles.td}>{records.fees} </td>   */}
+				       
+			        </tr>
+			    //  )
+		     }  
+
+        
+            </table>   
+       </>
+  }                     
+
+                     <div id="message" style={{color:"yellow"}}>{state.message}</div>
+    </div>
+  );
+    }
+  export default HighestFeeCalculation;
+  

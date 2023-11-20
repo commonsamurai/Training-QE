@@ -1,0 +1,135 @@
+export  async function addCourseDetails(course) {
+    const response = await fetch('http://localhost:9091/course/addCourse', {
+    method: 'POST',
+    headers: {
+      'Authorization': "Bearer "+localStorage.getItem("token"),
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Methods": "POST, PUT, GET,OPTIONS,DELETE" ,      
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Origin,Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept,Authorization"          
+
+    },
+    body: JSON.stringify(course)
+  })
+
+  return await response.json();  
+}
+
+export async function updateCourse(courseId,fees) {
+  const response = await fetch('http://localhost:9091/course/update/'+courseId+"/"+fees, {
+  method: 'PUT',
+  headers: {
+    'Authorization': "Bearer "+localStorage.getItem("token"),
+    'Content-Type': 'application/json',
+    "Access-Control-Allow-Methods": "POST, PUT, GET,OPTIONS,DELETE" ,      
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Origin,Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept,Authorization"          
+
+  },
+  body: JSON.stringify(courseId)
+})
+
+return await response.json();  
+}
+// export  default function addCourse(course) {
+   
+//       axios({  
+  
+//         url: "http://localhost:9091/addCourse",
+//         method: "POST",
+//         // JSON.parse(JSON.stringify(course)),
+       
+//         headers: {	 	  	  		    	   	 	   	 	
+//             'Authorization': "Bearer "+localStorage.getItem("token"),
+//             'Content-Type': 'application/json',
+//             "Access-Control-Allow-Methods": "POST, PUT, GET,OPTIONS,DELETE" ,      
+//             "Access-Control-Allow-Origin": "*",
+//             "Access-Control-Allow-Headers": "Origin,Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept,Authorization"
+               
+//         },   
+      
+//         data: course,
+//       })
+//         .then((res) => {
+//             console.log(res);
+//             return res;
+//          })
+    
+//         // Catch errors if any
+//         .catch((err) => { 
+//             console.log(err)
+//            return err;
+            
+//         });
+//     }
+
+    
+  
+export async function viewAllCourse() {
+  //  console.log("view all course",localStorage.getItem("token"))
+  const options = {
+    headers: {
+      'Authorization': "Bearer "+localStorage.getItem("token"),
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Methods": "POST, PUT, GET,OPTIONS,DELETE" ,      
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Origin,Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept,Authorization"          
+    
+    }	 	  	  		    	   	 	   	 	
+  };
+  const response = await fetch('http://localhost:9091/course/viewAllCourse', options);
+  return await response.json();
+  
+}
+
+export async function viewCourseById(courseId) {
+  //  console.log("view all course",localStorage.getItem("token"))
+  const options = {
+    headers: {
+      'Authorization': "Bearer "+localStorage.getItem("token"),
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Methods": "POST, PUT, GET,OPTIONS,DELETE" ,      
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Origin,Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept,Authorization"          
+    
+    }
+  };
+  const response = await fetch('http://localhost:9091/course/viewByCourseId/'+courseId, options);
+  return await response.json();
+  
+}
+  
+export async function viewFeedback(courseId) {
+   console.log("feed",localStorage.getItem("token"))
+  const options = {
+    headers: {
+      'Authorization': "Bearer "+localStorage.getItem("token"),
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Methods": "POST, PUT, GET,OPTIONS,DELETE" ,      
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Origin,Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept,Authorization"          
+    
+    }
+  };
+  const response = await fetch('http://localhost:9091/course/viewFeedbackRating/'+courseId, options);
+  return await response.json();
+  
+}	 	  	  		    	   	 	   	 	
+
+
+export async function deactivate(courseId,fees) {
+  const response = await fetch('http://localhost:9091/course/deactivate/'+courseId, {
+  method: 'DELETE',
+  headers: {
+    'Authorization': "Bearer "+localStorage.getItem("token"),
+    'Content-Type': 'application/json',
+    "Access-Control-Allow-Methods": "POST, PUT, GET,OPTIONS,DELETE" ,      
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Origin,Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept,Authorization"          
+
+  },
+  body: JSON.stringify(courseId)
+})
+
+return await response.json();  
+}

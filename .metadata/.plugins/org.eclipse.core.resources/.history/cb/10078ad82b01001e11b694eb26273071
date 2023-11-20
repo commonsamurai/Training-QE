@@ -1,0 +1,45 @@
+import React from 'react';
+import { Link, Outlet} from 'react-router-dom';
+// import Button from 'react-bootstrap/Button';
+// import Nav from 'react-bootstrap/Nav';
+// import AddCourse from './AddCourse';
+import { BrowserRouter as Router,Route,Routes,NavLink} from 'react-router-dom';
+import AssociateRegistration from './AssociateRegistration.js'
+import HighestFeeCalculation from './HighestFeeCalculation.js';
+import AddFeedback from './AddFeedback';
+import ViewFeedback from './ViewFeedback';
+import FeeDetails from './FeeDetails'
+import MakePayment from './MakePayment'
+import Routing from '../routing';
+function Admission(){
+    return (
+      <div className='bg-secondary text-white text-center'>
+        <div style={{textAlign:"center",width:"100%"}} >
+       
+            <h2 className='text-info'>ADMISSION DETAILS</h2>
+
+            
+            {/* <Nav className="flex-column bg-dark " style={{width: 200, height: 500}}> */}
+            {/* style={{width: 200, height: 500}} */}
+            <div style={{marginTop:"30px"}}>
+                <Link  to="registration"><button className='btn btn-warning'>Associate Registration</button></Link> {" "}|{" "}                
+                <Link  to="totalFee"><button className='btn btn-warning'>Total Fees</button></Link>{" "}|{" "} 
+                <Link  to="addfeedback"><button className='btn btn-warning'>Add Feedback</button></Link>{" "}|{" "} 
+                <Link  to="highestFee"><button className='btn btn-warning'>Highest Fee Details</button></Link>{" "}|{" "} 
+                <Link  to="viewfeedback"><button className='btn btn-warning'>View Feedback</button></Link>{" "}|{" "}
+                <Link  to="makepayment"><button className='btn btn-warning'>Make Payment</button></Link>{" "}{" "}  
+                </div>
+          {/* </Nav> */}
+       
+
+          </div>
+
+          <Outlet />         
+          
+        <Routing/>
+      </div>
+      ); 
+    }	 	  	  		    	   	 	   	 	
+  export default Admission;
+  
+  

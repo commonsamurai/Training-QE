@@ -1,0 +1,70 @@
+import React,{useState} from 'react';
+import { makePayment } from '../Service/AdmissionService';
+function MakePayment(){
+    const [state, setState] = useState({
+        registrationId: "",
+        courseId: "",
+        associateId:"",
+        fees:0,        
+        message:''
+    
+      });
+     
+      const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setState((prevProps) => ({
+          ...prevProps,
+          [name]: value
+        }));
+      };
+    
+      const handleSubmit = (event) => {
+        // setState({ message: 'You have registered successfully'});
+        event.preventDefault();
+        makePayment(state.registrationId).then(data => {
+          console.log("payment ",data);
+          // setState({ totalFee: data});
+         })
+         .catch((err) => { 
+           console.log(err)
+           setState({ message: err});
+        });
+        // console.log(state.message);
+      };  
+    
+      return (
+        <div className="main">
+          <h3>Make Payment for Registered Course</h3>
+    
+          <form onSubmit={handleSubmit}>
+            <div className="form-control">
+              <label>Registration Id</label>
+              <input type="text"  id="registrationId" name="registrationId" value={state.registrationId} onChange={handleInputChange}/>
+            </div>
+  
+            <div className="form-control">
+              <label>Course Id</label>
+              <input type="text"  id="courseId" name="courseId" value={state.courseId} onChange={handleInputChange}/>
+            </div>
+            
+            <div className="form-control">
+              <label>Associate Id</label>
+              <input type="text"  id="associateId" name="associateId" value={state.associateId} onChange={handleInputChange}/>
+            </div>
+            
+            <div className="form-control">
+              <label>Fees</label>
+              <input type="number" id="fees" name="fees"  value={state.fees} onChange={handleInputChange}/>
+            </div>     
+           
+            
+              <button id="submit" type="submit" style={{alignContent:"center"}} onClick={handleSubmit}>Pay Now</button>
+           
+          </form>
+          <br></br>
+                         <div id="message" style={{color:"yellow"}}>{state.message}</div>
+        </div>
+      );
+    }	 	  	  		    	   	 	   	 	
+  export default MakePayment;
+  

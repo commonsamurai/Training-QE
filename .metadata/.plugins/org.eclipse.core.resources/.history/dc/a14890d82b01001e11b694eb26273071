@@ -1,0 +1,74 @@
+import React from 'react'
+import { BrowserRouter as Router,Route,Routes,NavLink} from 'react-router-dom';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+
+import Course from './Course/Course.js';
+import Admission from './Admission/Admission.js';
+import Associate from './Associate/Associate.js';
+import AddCourse from './Course/AddCourse.js';
+import UpdateCourse from './Course/UpdateCourse.js';
+import ViewCourse from './Course/ViewCourse.js';
+import CourseDeactivate from './Course/CourseDeactivate.js';
+// import ViewFeedback from './Course/ViewFeedback.js';
+// import CourseFeedback from './Course/CourseFeedback';
+import CourseRating from './Course/CourseRating.js';
+import AssociateRegistration from './Admission/AssociateRegistration.js'
+import HighestFeeCalculation from './Admission/HighestFeeCalculation';
+import AddFeedback from './Admission/AddFeedback';
+import ViewFeedback from './Admission/ViewFeedback';
+import AddAssociate from './Associate/AddAssociate';
+import UpdateAssociate from './Associate/UpdateAssociate';
+import ViewAssociate from './Associate/ViewAssocite';
+import FeeDetails from './Admission/FeeDetails.js';
+
+import MakePayment from './Admission/MakePayment'
+
+
+// import {Button} from 'react-bootstrap';
+import "bootstrap/dist/css/bootstrap.min.css";
+
+
+ function Routing(){
+  return (
+    <div >
+           
+        <Routes>
+        <Route path="/course" element={<Course/>}/>     
+        <Route path="/admission" element={<Admission />} ></Route> 
+        <Route path="/associate" element={<Associate />} /> 
+      
+
+        
+             <Route path="addcourse" element={<AddCourse />} />
+            <Route path="updatecourse" element={<UpdateCourse />} />
+            <Route path="viewcourse" element={<ViewCourse />} />
+             <Route path="viewfeedbackrating" element={<CourseRating />} />
+            <Route path="deactivate" element={<CourseDeactivate />} />
+          
+
+        <Route path="admission" element={<Admission />}/>
+            <Route path="registration" element={<AssociateRegistration />} />
+            <Route path="addfeedback" element={<AddFeedback />} />
+          <Route path="totalFee" element={<FeeDetails />} />  
+            <Route path="makepayment" element={<MakePayment/>} />  
+           <Route path="highestFee" element={<HighestFeeCalculation />} />
+            <Route path="viewfeedback" element={<ViewFeedback />} />     
+     
+           <Route path="associate" element={<Associate />} />
+            <Route path="addassociate" element={<AddAssociate />} />
+            <Route path="updateassociate" element={<UpdateAssociate />} />
+            <Route path="viewassociate" element={<ViewAssociate />} />
+          </Routes> 
+           
+
+    </div>
+    ); 
+  }	 	  	  		    	   	 	   	 	
+export default Routing;
+
+
+
+
+  

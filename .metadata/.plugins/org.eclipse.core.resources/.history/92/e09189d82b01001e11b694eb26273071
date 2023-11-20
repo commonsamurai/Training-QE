@@ -1,0 +1,67 @@
+import React,{useState} from 'react';
+import { addfeedback } from '../Service/AdmissionService';
+
+function AddFeedback(){
+  const [state, setState] = useState({
+    regNo: "",
+    feedback: "",
+    feedbackRating:0.0  ,
+    message:''  
+
+  });
+ 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setState((prevProps) => ({
+      ...prevProps,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (event) => {
+
+    addfeedback(state.regNo,state.feedback,state.feedbackRating).then(data => {
+      console.log("feed ",data);
+      setState({ message: 'Feedback updated successfully'});
+     })
+     .catch((err) => { 
+       console.log(err)
+       setState({ message: err});
+    });
+   
+   
+    event.preventDefault();
+    console.log(state.message);
+  };  
+
+  return (
+    <div className="main">
+      <h3>Add Feedback</h3>
+
+      <form onSubmit={handleSubmit}>
+        <div className="form-control">
+          <label>Register Number</label>
+          <input type="text"  id="regNo" name="regNo" value={state.regNo} onChange={handleInputChange}/>
+        </div>
+
+        <div className="form-control">
+          <label>Feedback Comments</label>
+          <input type="text"  id="feedback" name="feedback" value={state.feedback} onChange={handleInputChange}/>
+        </div>
+        
+        <div className="form-control">
+          <label>Feedback Rating (Rate from 1 to 5)</label>
+          <input type="text"  id="feedbackRating" name="feedbackRating" value={state.feedbackRating} onChange={handleInputChange}/>
+        </div>
+        
+        
+          <button id="submit" type="submit" style={{alignContent:"center"}} onClick={handleSubmit}>Submit</button>
+       
+      </form>
+      <br></br>
+                     <div id="message" style={{color:"yellow"}}>{state.message}</div>
+    </div>
+  );
+    }	 	  	  		    	   	 	   	 	
+  export default AddFeedback;
+  
