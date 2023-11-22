@@ -18,6 +18,13 @@ public class StudentController {
 	    public String getBooks(){
 	        return sService.loadbyname(null);
 	    }
+	    
+	    
+	    @RequestMapping("/getBookById")
+	    @ResponseBody
+	    public Student getStudentbyName(@RequestParam("name") String name){
+	        return sService.getStudentnamebyName(name);
+	    }
 }
 
 

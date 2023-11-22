@@ -21,5 +21,8 @@ public class StudentService {
 		return name;
 	}
 	
-	
+	 public Student getStudentnamebyName(String name){
+	        Student s = userRepository.findByname(name);
+	        return s;
+	    }	
 }

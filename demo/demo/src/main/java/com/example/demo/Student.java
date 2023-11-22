@@ -13,7 +13,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student {
+	@Id
+    private String name;
 	
+	private String age;
+	
+	private String salary;
 	
 	public Student(String string, String string2, String string3) {
 		// TODO Auto-generated constructor stub
@@ -43,11 +48,7 @@ public class Student {
 		this.salary = salary;
 	}
 
-	private String name;
 	
-	private String age;
-	
-	private String salary;
 
 	
 }

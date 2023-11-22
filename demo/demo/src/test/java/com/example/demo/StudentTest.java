@@ -15,7 +15,7 @@ public class StudentTest {
 	Student s1;
 	@BeforeEach
 	public void before() {
-		s1 =new Student("varun","qeq","2eq2e");
+		s1 =new Student("varun","2","3");
 	}
 	
 	
@@ -27,18 +27,18 @@ public class StudentTest {
 	
 	@Test
 	void testGetName() {
-		assertEquals("abc", s1.getName());
+		assertEquals("varun", s1.getName());
 	}
 
 
 	@Test
 	void testGetage() {
-		assertEquals(200, s1.getAge());
+		assertEquals("2", s1.getAge());
 	}
 	
 	@Test
 	void testGetSalary() {
-		assertEquals(1,s1.getSalary());
+		assertEquals("3",s1.getSalary());
 	}
 	
 	
@@ -53,13 +53,13 @@ public class StudentTest {
 	@Test
 	void testSetAge() {
 		s1.setAge("123");
-		assertEquals("12", s1.getAge());
+		assertEquals("123", s1.getAge());
 	}
 	
 	@Test
 	void testsetSalary() {
 		s1.setSalary("123");
-		assertEquals("12345",s1.getSalary());
+		assertEquals("123",s1.getSalary());
 	}
 
 
